@@ -4,10 +4,23 @@ set -e
 
 function push {
     # bash-friendly way to get current branch name
-    local branch=$(git rev-parse --abbrev-ref HEAD)
+    # local branch=$(git rev-parse --abbrev-ref HEAD)
+    local branch=${TRAVIS_BRANCH}
+    local pr={TRAVIS_PULL_REQUEST}
+    local buildno={TRAVIS_BUILD_NUMBER}
+    
     echo "Current git branch is ${branch}"
+    echo "Current git PR number is ${pr}"
 
-    local repo="ppanyukov/mesos-discovery-go:${branch}"
+    # Not so easy to do tagging...
+    local dockertag=""
+    if [ "${pr}" = "false" ]; then
+        dockertag="${branch}"
+    else
+        dockertag="${branch}-pr-${pr}"
+    fi
+
+    local repo="ppanyukov/mesos-discovery-go:${dockertag}"
     echo "Will push to repo: ${repo}"
 
     # These var are set in travis
