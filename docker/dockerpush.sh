@@ -20,6 +20,9 @@ function push {
         dockertag="${branch}-pr-${pr}"
     fi
 
+    # make sure no illegal chars in tag
+    dockertag=$(echo ${dockertag} | sed 'sA[\\/|-]A_Ag' )
+
     local repo="ppanyukov/mesos-discovery-go:${dockertag}"
     echo "Will push to repo: ${repo}"
 
