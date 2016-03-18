@@ -12,6 +12,14 @@ function push {
 
     # These var are set in travis
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
+    # Copy all built stuff to files dir here
+    local dir=$(dir $0)
+    mkdir -p ${dir}/files
+    cp -r "${GOPATH}/bin" "${dir}/files/bin"
+
+    docker build -t "${repo}" "${dir}"
+    docker push "${repo}"
 }
 
 push

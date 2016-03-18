@@ -7,7 +7,7 @@ go:
     - 1.6
 
 services:
-  - docker
+    - docker
 
 script:
     - make travis
