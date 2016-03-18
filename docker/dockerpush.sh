@@ -6,8 +6,8 @@ function push {
     # bash-friendly way to get current branch name
     # local branch=$(git rev-parse --abbrev-ref HEAD)
     local branch=${TRAVIS_BRANCH}
-    local pr={TRAVIS_PULL_REQUEST}
-    local buildno={TRAVIS_BUILD_NUMBER}
+    local pr=${TRAVIS_PULL_REQUEST}
+    local buildno=${TRAVIS_BUILD_NUMBER}
     
     echo "Current git branch is ${branch}"
     echo "Current git PR number is ${pr}"
